@@ -25,7 +25,6 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -33,38 +32,37 @@ import retrofit2.http.Query
  */
 interface MovieApi {
 
-    @GET("/tv/popular?api_key=6b69ba67a66322caedc958e07f550484&language=en-US&page={pageNumber}")
+    @GET("./tv/popular?language=en-US")
     fun getTop(
-            @Path("pageNumber") pageNumber: String,
-            @Query("page") currentPage: Int,
-            @Query("total_pages") totalPages: Int
+        @Query("api_key") apiKey: String,
+        @Query("page") pageNumber: Int,
     ): Call<ListingResponse>
 
     class ListingResponse(val data: ListingData)
 
-    class ListingData(
-            val result: List<MovieChildrenResponse>,
-            val page: Int,
-            val total_pages: Int
+    data class ListingData(
+        val result: List<MovieResultResponse>,
+        val page: Int,
+        val total_pages: Int
     )
 
-    data class MovieChildrenResponse(val data: MoviePost)
+    data class MovieResultResponse(val data: MoviePost)
 
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/3/"
         fun create(): MovieApi {
             val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.d("API", it) })
-            logger.level = HttpLoggingInterceptor.Level.BASIC
+            logger.level = HttpLoggingInterceptor.Level.BODY
 
             val client = OkHttpClient.Builder()
-                    .addInterceptor(logger)
-                    .build()
+                .addInterceptor(logger)
+                .build()
             return Retrofit.Builder()
-                    .baseUrl(BASE_URL.toHttpUrlOrNull()!!)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(MovieApi::class.java)
+                .baseUrl(BASE_URL.toHttpUrlOrNull()!!)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(MovieApi::class.java)
         }
     }
 }

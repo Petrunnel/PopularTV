@@ -9,6 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        viewBinding.enabled = true
         applicationId "com.example.notes.populartv"
         minSdkVersion 21
         targetSdkVersion 30
@@ -31,6 +32,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+
 }
 
 dependencies {
