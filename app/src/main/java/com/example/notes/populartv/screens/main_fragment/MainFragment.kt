@@ -1,4 +1,4 @@
-package com.example.notes.populartv.screens
+package com.example.notes.populartv.screens.main_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
