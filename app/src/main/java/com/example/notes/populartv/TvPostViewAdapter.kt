@@ -11,7 +11,7 @@ import com.example.notes.populartv.api.TvPost
 
 class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHolder>(DiffUtilCallBack()) {
 
-    override fun onBindViewHolder(holder: TvPostViewAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.bind(getItem(position)!!)
     }
@@ -19,8 +19,10 @@ class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHol
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TvPostViewAdapter.MyViewHolder {
-        val inflater = LayoutInflater.from(parent.context).inflate(R.layout.film_item, parent, false)
+    ): MyViewHolder {
+        val inflater = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.film_item, parent, false)
 
         return MyViewHolder(inflater)
     }
@@ -42,6 +44,7 @@ class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHol
 
         override fun areContentsTheSame(oldItem: TvPost, newItem: TvPost): Boolean {
             return oldItem.name == newItem.name
+                    && oldItem.id == newItem.id
 
         }
 

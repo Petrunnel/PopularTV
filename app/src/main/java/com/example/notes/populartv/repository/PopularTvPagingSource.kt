@@ -19,11 +19,11 @@ class PopularTvPagingSource(val api: PopularTvApi): PagingSource<Int, TvPost>() 
             val response = api.getTop(API_KEY, nextPage)
 
             var nextPageNumber: Int? = null
-            if(response?.page < response?.total_pages ) {
+            if(response.page < response.total_pages ) {
                 nextPageNumber = nextPage + 1
             }
             var prevPageNumber: Int? = null
-            if(response?.page != FIRST_PAGE_INDEX) {
+            if(response.page != FIRST_PAGE_INDEX) {
                 prevPageNumber = nextPage - 1
             }
 

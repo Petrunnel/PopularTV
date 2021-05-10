@@ -21,7 +21,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun getListData() : Flow<PagingData<TvPost>> {
-        return Pager (config = PagingConfig(pageSize = 20, maxSize = 500),
+        return Pager (config = PagingConfig(pageSize = 20, maxSize = 200),
         pagingSourceFactory = {PopularTvPagingSource(retrofitService)}).flow.cachedIn(viewModelScope)
     }
 }
