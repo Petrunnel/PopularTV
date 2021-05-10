@@ -17,8 +17,7 @@
 package com.example.notes.populartv.api
 
 import android.util.Log
-import com.example.notes.populartv.MoviePost
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import com.example.notes.populartv.utilits.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -30,27 +29,16 @@ import retrofit2.http.Query
 /**
  * API communication setup
  */
-interface MovieApi {
+interface PopularTvApi {
 
     @GET("./tv/popular?language=en-US")
     fun getTop(
         @Query("api_key") apiKey: String,
         @Query("page") pageNumber: Int,
-    ): Call<ListingResponse>
-
-    class ListingResponse(val data: ListingData)
-
-    data class ListingData(
-        val result: List<MovieResultResponse>,
-        val page: Int,
-        val total_pages: Int
-    )
-
-    data class MovieResultResponse(val data: MoviePost)
+    ): Call<PopularTvList>
 
     companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/3/"
-        fun create(): MovieApi {
+        fun create(): PopularTvApi {
             val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.d("API", it) })
             logger.level = HttpLoggingInterceptor.Level.BODY
 
@@ -58,11 +46,11 @@ interface MovieApi {
                 .addInterceptor(logger)
                 .build()
             return Retrofit.Builder()
-                .baseUrl(BASE_URL.toHttpUrlOrNull()!!)
+                .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(MovieApi::class.java)
+                .create(PopularTvApi::class.java)
         }
     }
 }
