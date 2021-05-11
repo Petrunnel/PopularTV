@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +51,9 @@ class MainFragment : Fragment() {
             layoutManager = LinearLayoutManager(APP_ACTIVITY)
             val decoration  = DividerItemDecoration(activity?.applicationContext, DividerItemDecoration.VERTICAL)
             addItemDecoration(decoration)
-            mAdapter = TvPostViewAdapter()
+            mAdapter = TvPostViewAdapter(TvPostViewAdapter.TvPostClickListener {
+                findNavController().navigate(R.id.action_mainFragment_to_detailsFragment)
+            })
             adapter = mAdapter
 
         }

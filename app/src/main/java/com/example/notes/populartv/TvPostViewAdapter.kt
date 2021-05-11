@@ -12,11 +12,12 @@ import com.example.notes.populartv.api.TvPost
 import com.example.notes.populartv.utilits.POSTER_W200_BASE_URL
 import com.squareup.picasso.Picasso
 
-class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHolder>(DiffUtilCallBack()) {
+class TvPostViewAdapter(private val cl: TvPostClickListener) :
+    PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHolder>(DiffUtilCallBack()) {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.bind(getItem(position)!!)
+        holder.bind(getItem(position)!!, cl.clickListener)
     }
 
     override fun onCreateViewHolder(
@@ -30,14 +31,15 @@ class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHol
         return MyViewHolder(inflater)
     }
 
-    class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val tvName: TextView = view.findViewById(R.id.name_list)
         val tvVote: TextView = view.findViewById(R.id.vote_average_list)
         val tvFirstAirDate: TextView = view.findViewById(R.id.first_air_date_list)
         val tvPoster: ImageView = view.findViewById(R.id.poster_image_list)
 
-        fun bind(data: TvPost) {
+        fun bind(data: TvPost, clickListener: (tvPost: TvPost) -> Unit) {
+            itemView.setOnClickListener {clickListener(data)}
             tvName.text = data.name
             tvVote.text = data.voteAverage.toString()
             tvFirstAirDate.text = data.firstAirDate
@@ -49,7 +51,7 @@ class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHol
 
     }
 
-    class DiffUtilCallBack: DiffUtil.ItemCallback<TvPost>() {
+    class DiffUtilCallBack : DiffUtil.ItemCallback<TvPost>() {
         override fun areItemsTheSame(oldItem: TvPost, newItem: TvPost): Boolean {
             return oldItem.name == newItem.name
         }
@@ -61,10 +63,5 @@ class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHol
         }
     }
 
-//    override fun onViewAttachedToWindow(holder: MyViewHolder) {
-//        holder.itemView.setOnClickListener {
-//            MainFragment.click()
-//        }
-//    }
-
+    data class TvPostClickListener(val clickListener: (tvPost: TvPost) -> Unit)
 }
