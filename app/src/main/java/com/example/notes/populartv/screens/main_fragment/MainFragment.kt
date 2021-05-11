@@ -10,7 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notes.populartv.R
 import com.example.notes.populartv.TvPostViewAdapter
+import com.example.notes.populartv.api.TvPost
 import com.example.notes.populartv.databinding.FragmentMainBinding
 import com.example.notes.populartv.utilits.APP_ACTIVITY
 import kotlinx.coroutines.flow.collectLatest
@@ -63,4 +65,11 @@ class MainFragment : Fragment() {
             }
         }
     }
+
+    companion object{
+        fun click(note: TvPost){
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_detailsFragment)
+        }
+    }
+
 }
