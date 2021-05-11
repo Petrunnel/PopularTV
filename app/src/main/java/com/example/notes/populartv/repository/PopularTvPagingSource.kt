@@ -15,19 +15,19 @@ class PopularTvPagingSource(val api: PopularTvApi): PagingSource<Int, TvPost>() 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvPost> {
         return try {
-            val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
-            val response = api.getTop(API_KEY, nextPage)
+            val currentPage: Int = params.key ?: FIRST_PAGE_INDEX
+            val response = api.getTop(API_KEY, currentPage)
 
             var nextPageNumber: Int? = null
             if(response.page < response.total_pages ) {
-                nextPageNumber = nextPage + 1
+                nextPageNumber = currentPage + 1
             }
             var prevPageNumber: Int? = null
-            if(response.page != FIRST_PAGE_INDEX) {
-                prevPageNumber = nextPage - 1
+            if(response.page > FIRST_PAGE_INDEX) {
+                prevPageNumber = currentPage - 1
             }
 
-            LoadResult.Page(data = response.result,
+            LoadResult.Page(data = response.results,
                     prevKey = prevPageNumber,
                     nextKey = nextPageNumber)
         }

@@ -29,10 +29,15 @@ class TvPostViewAdapter(): PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHol
 
     class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        val tvName: TextView = view.findViewById(R.id.TV_name)
+        val tvName: TextView = view.findViewById(R.id.name_list)
+        val tvVote: TextView = view.findViewById(R.id.vote_average_list)
+        val tvFirstAirDate: TextView = view.findViewById(R.id.first_air_date_list)
 
         fun bind(data: TvPost) {
             tvName.text = data.name
+            tvVote.text = data.voteAverage.toString()
+            tvFirstAirDate.text = data.firstAirDate
+
         }
 
     }
