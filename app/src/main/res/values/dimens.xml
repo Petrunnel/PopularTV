@@ -2,8 +2,13 @@
 <resources>
     <dimen name="card_corner_radius">5dp</dimen>
     <dimen name="card_elevation">10dp</dimen>
-    <dimen name="item_TV_name">20sp</dimen>
+    <dimen name="app_medium_text">16sp</dimen>
+    <dimen name="app_large_text">20sp</dimen>
     <dimen name="app_margin">8dp</dimen>
-    <dimen name="poster_width_list">75dp</dimen>
-    <dimen name="poster_height_list">100dp</dimen>
+    <dimen name="app_margin_large">16dp</dimen>
+    <dimen name="poster_width_small">75dp</dimen>
+    <dimen name="poster_height_small">100dp</dimen>
+    <dimen name="poster_width">150dp</dimen>
+    <dimen name="poster_height">200dp</dimen>
+    <dimen name="picture_details_weight">400dp</dimen>
 </resources>

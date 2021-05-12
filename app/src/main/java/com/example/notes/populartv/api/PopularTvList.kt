@@ -1,6 +1,8 @@
 package com.example.notes.populartv.api
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class PopularTvList(
     val results: List<TvPost>,
@@ -13,7 +15,7 @@ data class TvPost(
     @SerializedName("name")
     val name: String,
     @SerializedName("backdrop_path")
-    val backdropPath: String?,
+    val backdrop_path: String?,
     @SerializedName("first_air_date")
     val firstAirDate: String,
     @SerializedName("genre_ids")
@@ -34,4 +36,4 @@ data class TvPost(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-)
+) : Serializable

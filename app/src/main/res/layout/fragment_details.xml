@@ -4,6 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.DetailsFragment">
+    tools:context=".screens.details_fragment.DetailsFragment">
+
+    <ImageView
+        android:id="@+id/poster_image_details"
+        android:layout_width="@dimen/poster_width"
+        android:layout_height="@dimen/poster_height"
+        android:layout_margin="@dimen/app_margin_large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_details"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin_large"
+        android:lines="2"
+        android:textSize="@dimen/app_large_text"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/poster_image_details"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/first_air_date_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin_large"
+        android:textSize="@dimen/app_medium_text"
+        app:layout_constraintStart_toEndOf="@id/poster_image_details"
+        app:layout_constraintTop_toBottomOf="@id/name_details" />
+
+    <TextView
+        android:id="@+id/vote_average_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin_large"
+        android:textSize="@dimen/app_medium_text"
+        app:layout_constraintStart_toEndOf="@id/poster_image_details"
+        app:layout_constraintTop_toBottomOf="@id/first_air_date_details" />
+
+    <TextView
+        android:id="@+id/overview_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin_large"
+        android:textSize="@dimen/app_medium_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/poster_image_details" />
+
+    <ImageView
+        android:id="@+id/backdrop_path_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/overview_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

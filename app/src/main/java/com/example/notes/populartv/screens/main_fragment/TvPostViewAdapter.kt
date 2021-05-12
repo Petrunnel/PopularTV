@@ -1,4 +1,4 @@
-package com.example.notes.populartv
+package com.example.notes.populartv.screens.main_fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notes.populartv.R
 import com.example.notes.populartv.api.TvPost
 import com.example.notes.populartv.utilits.POSTER_W200_BASE_URL
 import com.squareup.picasso.Picasso

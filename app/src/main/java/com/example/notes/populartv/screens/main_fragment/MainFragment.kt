@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.populartv.R
-import com.example.notes.populartv.TvPostViewAdapter
-import com.example.notes.populartv.api.TvPost
 import com.example.notes.populartv.databinding.FragmentMainBinding
 import com.example.notes.populartv.utilits.APP_ACTIVITY
 import kotlinx.coroutines.flow.collectLatest
@@ -52,7 +50,9 @@ class MainFragment : Fragment() {
             val decoration  = DividerItemDecoration(activity?.applicationContext, DividerItemDecoration.VERTICAL)
             addItemDecoration(decoration)
             mAdapter = TvPostViewAdapter(TvPostViewAdapter.TvPostClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_detailsFragment)
+                val bundle = Bundle()
+                bundle.putSerializable("id", it)
+                findNavController().navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
             })
             adapter = mAdapter
 
@@ -66,12 +66,6 @@ class MainFragment : Fragment() {
             viewModel.getListData().collectLatest {
                 mAdapter.submitData(it)
             }
-        }
-    }
-
-    companion object{
-        fun click(note: TvPost){
-            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_detailsFragment)
         }
     }
 
