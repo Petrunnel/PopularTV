@@ -1,6 +1,7 @@
 package com.example.notes.populartv.api
 
-import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -9,7 +10,10 @@ data class PopularTvList(
     val page: Int,
     val total_pages: Int
 )
+
+@Entity(tableName = "tv_posts")
 data class TvPost(
+    @PrimaryKey
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

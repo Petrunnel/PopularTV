@@ -6,6 +6,8 @@ import com.example.notes.populartv.api.PopularTvApi
 import com.example.notes.populartv.api.TvPost
 import com.example.notes.populartv.utilits.API_KEY
 
+const val FIRST_PAGE_INDEX = 1
+
 class PopularTvPagingSource(val api: PopularTvApi): PagingSource<Int, TvPost>() {
     override fun getRefreshKey(state: PagingState<Int, TvPost>): Int? {
 
@@ -35,10 +37,4 @@ class PopularTvPagingSource(val api: PopularTvApi): PagingSource<Int, TvPost>() 
             LoadResult.Error(e)
         }
     }
-    companion object {
-        private const val FIRST_PAGE_INDEX = 1
-    }
-
-
-
 }
