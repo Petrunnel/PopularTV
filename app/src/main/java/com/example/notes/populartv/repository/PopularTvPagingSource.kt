@@ -8,12 +8,8 @@ import com.example.notes.populartv.utilits.API_KEY
 
 const val FIRST_PAGE_INDEX = 1
 
+@Suppress("UNREACHABLE_CODE")
 class PopularTvPagingSource(val api: PopularTvApi): PagingSource<Int, TvPost>() {
-    override fun getRefreshKey(state: PagingState<Int, TvPost>): Int? {
-
-        return state.anchorPosition
-
-    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvPost> {
         return try {
@@ -21,20 +17,30 @@ class PopularTvPagingSource(val api: PopularTvApi): PagingSource<Int, TvPost>() 
             val response = api.getTop(API_KEY, currentPage)
 
             var nextPageNumber: Int? = null
-            if(response.page < response.total_pages ) {
+            if (response.results.isNotEmpty()) {
                 nextPageNumber = currentPage + 1
             }
             var prevPageNumber: Int? = null
-            if(response.page > FIRST_PAGE_INDEX) {
+            if (response.page != FIRST_PAGE_INDEX) {
                 prevPageNumber = currentPage - 1
             }
 
-            LoadResult.Page(data = response.results,
-                    prevKey = prevPageNumber,
-                    nextKey = nextPageNumber)
-        }
-        catch (e: Exception) {
+            LoadResult.Page(
+                data = response.results,
+                prevKey = prevPageNumber,
+                nextKey = nextPageNumber
+            )
+        } catch (e: Exception) {
             LoadResult.Error(e)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, TvPost>): Int? {
+
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+
         }
     }
 }

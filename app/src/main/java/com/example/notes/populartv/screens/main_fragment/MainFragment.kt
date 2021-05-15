@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,7 @@ class MainFragment : Fragment() {
         return mBinding.root
     }
 
+    @ExperimentalPagingApi
     override fun onStart() {
         super.onStart()
         initRecyclerView()
@@ -60,10 +62,11 @@ class MainFragment : Fragment() {
 
     }
 
+    @ExperimentalPagingApi
     private fun initViewModel() {
         val viewModel  = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
         lifecycleScope.launchWhenCreated {
-            viewModel.getListData().collectLatest {
+            viewModel.getTvPostsFromMediator().collectLatest {
                 mAdapter.submitData(it)
             }
         }
