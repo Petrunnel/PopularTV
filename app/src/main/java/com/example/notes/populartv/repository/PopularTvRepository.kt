@@ -20,7 +20,7 @@ class PopularTvRepository(
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+                prefetchDistance = PAGE_SIZE,
                 enablePlaceholders = false
             ),
             remoteMediator = PopularTvRemoteMediator(

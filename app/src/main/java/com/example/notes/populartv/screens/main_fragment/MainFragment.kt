@@ -36,8 +36,10 @@ class MainFragment : Fragment() {
     @ExperimentalPagingApi
     override fun onStart() {
         super.onStart()
+        initSwipeToRefresh()
         initRecyclerView()
         initViewModel()
+
     }
 
     override fun onDestroy() {
@@ -73,6 +75,13 @@ class MainFragment : Fragment() {
             viewModel.getTvPosts().collectLatest {
                 mAdapter.submitData(it)
             }
+        }
+    }
+
+    private fun initSwipeToRefresh() {
+        mBinding.swipeRefresh.setOnRefreshListener {
+            mAdapter.refresh()
+            mBinding.swipeRefresh.isRefreshing = false
         }
     }
 
