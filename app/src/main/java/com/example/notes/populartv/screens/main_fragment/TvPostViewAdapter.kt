@@ -54,13 +54,11 @@ class TvPostViewAdapter(private val cl: TvPostClickListener) :
 
     class DiffUtilCallBack : DiffUtil.ItemCallback<TvPost>() {
         override fun areItemsTheSame(oldItem: TvPost, newItem: TvPost): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: TvPost, newItem: TvPost): Boolean {
-            return oldItem.name == newItem.name
-                    && oldItem.id == newItem.id
-
+            return oldItem == newItem
         }
     }
 

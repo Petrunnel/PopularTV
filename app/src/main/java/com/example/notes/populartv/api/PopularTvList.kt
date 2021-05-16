@@ -13,7 +13,7 @@ data class PopularTvList(
 
 @Entity(tableName = "tv_posts")
 data class TvPost(
-    @PrimaryKey
+
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
@@ -32,6 +32,8 @@ data class TvPost(
     val originalLanguage: String,
     @SerializedName("overview")
     val overview: String,
+
+    @PrimaryKey
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")

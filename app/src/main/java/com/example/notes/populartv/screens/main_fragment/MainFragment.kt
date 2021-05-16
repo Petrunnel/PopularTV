@@ -12,6 +12,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notes.populartv.Injection
 import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentMainBinding
 import com.example.notes.populartv.utilits.APP_ACTIVITY
@@ -64,9 +65,12 @@ class MainFragment : Fragment() {
 
     @ExperimentalPagingApi
     private fun initViewModel() {
-        val viewModel  = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
+        val viewModel  = ViewModelProvider(
+            this,
+            Injection.provideViewModelFactory(APP_ACTIVITY)
+        ).get(MainFragmentViewModel::class.java)
         lifecycleScope.launchWhenCreated {
-            viewModel.getTvPostsFromMediator().collectLatest {
+            viewModel.getTvPosts().collectLatest {
                 mAdapter.submitData(it)
             }
         }
