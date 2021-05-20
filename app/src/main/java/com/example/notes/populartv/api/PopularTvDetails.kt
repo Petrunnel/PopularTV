@@ -1,40 +1,36 @@
 package com.example.notes.populartv.api
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
-
-@Entity(tableName = "tv_posts")
-data class TvPost(
-
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("name")
-    val name: String,
+data class PopularTvDetails(
     @SerializedName("backdrop_path")
-    val backdrop_path: String?,
+    val backdropPath: String?,
+    @SerializedName("episode_run_time")
+    val episodeRunTime: List<Int>,
     @SerializedName("first_air_date")
     val firstAirDate: String,
-//    @SerializedName("genre_ids")
-//    val genreIds: List<Int>,
-//    @SerializedName("origin_country")
-//    val originCountry: List<String>,
-    @SerializedName("original_name")
-    val originalName: String,
+    @SerializedName("last_air_date")
+    val lastAirDate: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("number_of_episodes")
+    val numberOfEpisodes: Int,
+    @SerializedName("number_of_seasons")
+    val numberOfSeasons: Int,
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("overview")
     val overview: String,
-
-    @PrimaryKey
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
     val posterPath: String?,
+    @SerializedName("status")
+    val status: String,
+    @SerializedName("tagline")
+    val tagline: String,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-) : Serializable
+)

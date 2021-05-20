@@ -23,6 +23,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -35,5 +36,11 @@ interface PopularTvApi {
         @Query("api_key") apiKey: String,
         @Query("page") pageNumber: Int,
     ): PopularTvList
+
+    @GET("/3/tv/{tvPostId}")
+    suspend fun getDetails(
+        @Path("tvPostId") id: Int,
+        @Query("api_key") apiKey: String,
+    ): PopularTvDetails
 
 }

@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
             addItemDecoration(decoration)
             mAdapter = TvPostViewAdapter(TvPostViewAdapter.TvPostClickListener {
                 val bundle = Bundle()
-                bundle.putSerializable("id", it)
+                bundle.putInt("id", it.id)
                 findNavController().navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
             })
             adapter = mAdapter
