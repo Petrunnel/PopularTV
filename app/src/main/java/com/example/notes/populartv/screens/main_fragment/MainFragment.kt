@@ -12,10 +12,11 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notes.populartv.Injection
 import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentMainBinding
+import com.example.notes.populartv.di.Injection
 import com.example.notes.populartv.utilits.APP_ACTIVITY
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 class MainFragment : Fragment() {
@@ -70,7 +71,7 @@ class MainFragment : Fragment() {
         val viewModel  = ViewModelProvider(
             this,
             Injection.provideViewModelFactory(APP_ACTIVITY)
-        ).get(MainFragmentViewModel::class.java)
+            ).get(MainFragmentViewModel::class.java)
         lifecycleScope.launchWhenCreated {
             viewModel.getTvPosts().collectLatest {
                 mAdapter.submitData(it)

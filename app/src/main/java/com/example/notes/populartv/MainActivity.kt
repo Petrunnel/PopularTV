@@ -6,7 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.notes.populartv.databinding.ActivityMainBinding
 import com.example.notes.populartv.utilits.APP_ACTIVITY
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController

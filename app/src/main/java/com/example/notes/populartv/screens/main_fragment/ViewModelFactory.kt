@@ -19,11 +19,13 @@ package com.example.notes.populartv.screens.main_fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.populartv.repository.PopularTvRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Factory for ViewModels
  */
-class ViewModelFactory(private val repository: PopularTvRepository) : ViewModelProvider.Factory {
+class ViewModelFactory (private val repository: PopularTvRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {

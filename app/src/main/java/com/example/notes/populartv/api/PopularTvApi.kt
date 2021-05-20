@@ -36,20 +36,4 @@ interface PopularTvApi {
         @Query("page") pageNumber: Int,
     ): PopularTvList
 
-    companion object {
-        fun create(): PopularTvApi {
-            val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.d("API", it) })
-            logger.level = HttpLoggingInterceptor.Level.BODY
-
-            val client = OkHttpClient.Builder()
-                .addInterceptor(logger)
-                .build()
-            return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(PopularTvApi::class.java)
-        }
-    }
 }
