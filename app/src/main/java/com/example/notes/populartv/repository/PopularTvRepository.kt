@@ -5,11 +5,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.notes.populartv.api.PopularTvApi
-import com.example.notes.populartv.api.TvPost
+import com.example.notes.populartv.models.TvPost
 import com.example.notes.populartv.db.TvPostDatabase
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

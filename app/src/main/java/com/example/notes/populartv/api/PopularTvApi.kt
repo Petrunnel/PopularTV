@@ -16,12 +16,7 @@
 
 package com.example.notes.populartv.api
 
-import android.util.Log
-import com.example.notes.populartv.utilits.BASE_URL
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.notes.populartv.models.TvPostDetails
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -41,6 +36,6 @@ interface PopularTvApi {
     suspend fun getDetails(
         @Path("tvPostId") id: Int,
         @Query("api_key") apiKey: String,
-    ): PopularTvDetails
+    ): TvPostDetails
 
 }

@@ -9,7 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.populartv.R
-import com.example.notes.populartv.api.TvPost
+import com.example.notes.populartv.models.TvPost
 import com.example.notes.populartv.utilits.POSTER_W200_BASE_URL
 import com.squareup.picasso.Picasso
 

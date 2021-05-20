@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.notes.populartv.api.PopularTvApi
-import com.example.notes.populartv.api.TvPost
+import com.example.notes.populartv.models.TvPost
 import com.example.notes.populartv.db.RemoteKey
 import com.example.notes.populartv.db.TvPostDatabase
 import com.example.notes.populartv.utilits.API_KEY

@@ -1,4 +1,4 @@
-package com.example.notes.populartv.api
+package com.example.notes.populartv.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

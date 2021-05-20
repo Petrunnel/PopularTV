@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.notes.populartv.api.TvPost
+import com.example.notes.populartv.models.TvPost
 
 @Dao
 interface TvPostDao {

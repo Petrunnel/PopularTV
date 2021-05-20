@@ -1,8 +1,8 @@
-package com.example.notes.populartv.api
+package com.example.notes.populartv.models
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularTvDetails(
+data class TvPostDetails(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("episode_run_time")
