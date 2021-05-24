@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
     private var _binding: ActivityMainBinding? = null
-    val mBinding get() = _binding!!
+    private val mBinding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package com.example.notes.populartv.screens.main_fragment
+package com.example.notes.populartv.ui.main_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentMainBinding
 import com.example.notes.populartv.di.Injection
 import com.example.notes.populartv.utilits.APP_ACTIVITY
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 class MainFragment : Fragment() {

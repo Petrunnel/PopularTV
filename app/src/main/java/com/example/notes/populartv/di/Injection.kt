@@ -18,16 +18,17 @@ package com.example.notes.populartv.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import com.example.notes.populartv.api.PopularTvApi
+import com.example.notes.populartv.db.TvPostDatabase
 import com.example.notes.populartv.repository.PopularTvRepository
-import com.example.notes.populartv.screens.main_fragment.ViewModelFactory
-import com.example.notes.populartv.utilits.APP_ACTIVITY
+import com.example.notes.populartv.ui.main_fragment.ViewModelFactory
 
 object Injection {
 
     private fun providePopularTvRepository(context: Context): PopularTvRepository {
         return PopularTvRepository(
-            NetworkModule.providePopularTvApi(),
-            DBModule.provideDb(APP_ACTIVITY)
+            PopularTvApi.create(),
+            TvPostDatabase.getInstance(context)
         )
     }
 

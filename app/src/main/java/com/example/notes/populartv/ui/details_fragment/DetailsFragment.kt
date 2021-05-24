@@ -1,27 +1,30 @@
-package com.example.notes.populartv.screens.details_fragment
+package com.example.notes.populartv.ui.details_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.notes.populartv.R
-import com.example.notes.populartv.api.PopularTvApi
-import com.example.notes.populartv.models.TvPostDetails
 import com.example.notes.populartv.databinding.FragmentDetailsBinding
-import com.example.notes.populartv.di.NetworkModule
-import com.example.notes.populartv.utilits.API_KEY
 import com.example.notes.populartv.utilits.POSTER_W500_BASE_URL
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import dagger.hilt.android.AndroidEntryPoint
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import javax.inject.Inject
+import javax.inject.Provider
 
-class DetailsFragment : Fragment() {
+@AndroidEntryPoint
+class DetailsFragment : MvpAppCompatFragment(), DetailsView {
 
-    private val api: PopularTvApi = NetworkModule.providePopularTvApi()
+    @Inject
+    lateinit var presenter: DetailsPresenter
+
     private var _binding: FragmentDetailsBinding? = null
     private val mBinding get() = _binding!!
     private var tvId: Int = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,15 +41,10 @@ class DetailsFragment : Fragment() {
     }
 
     private fun initialization() {
-        fun details(): TvPostDetails {
-            return runBlocking(Dispatchers.IO) {
-                api.getDetails(id = tvId, apiKey = API_KEY)
-            }
-        }
 
-        val response = details()
+        val response = presenter.getTvPostDetails(tvId)
 
-        mBinding.nameDetails.text = response.name
+        mBinding.nameDetails.text =  response.name
         mBinding.firstAirDateDetails.text = "First date air: " + response.firstAirDate
         mBinding.voteAverageDetails.text = "Average vote: " + response.voteAverage.toString()
         mBinding.overviewDetails.text = response.overview
@@ -61,7 +59,6 @@ class DetailsFragment : Fragment() {
             .centerInside()
             .into(mBinding.backdropPathDetails)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
