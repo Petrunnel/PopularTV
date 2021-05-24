@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.notes.populartv.screens.main_fragment
+package com.example.notes.populartv.ui.main_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.populartv.repository.PopularTvRepository
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * Factory for ViewModels

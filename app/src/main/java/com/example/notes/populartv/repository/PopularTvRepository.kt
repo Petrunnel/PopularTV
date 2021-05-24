@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
-class PopularTvRepository @Inject constructor(
+class PopularTvRepository (
     private val api: PopularTvApi,
     private val db: TvPostDatabase
 ) {
