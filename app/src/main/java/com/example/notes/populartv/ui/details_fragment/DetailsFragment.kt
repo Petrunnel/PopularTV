@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentDetailsBinding
+import com.example.notes.populartv.utilits.APP_ACTIVITY
 import com.example.notes.populartv.utilits.POSTER_W500_BASE_URL
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
-import moxy.presenter.InjectPresenter
 import javax.inject.Inject
-import javax.inject.Provider
 
 @AndroidEntryPoint
 class DetailsFragment : MvpAppCompatFragment(), DetailsView {
@@ -37,16 +35,26 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        showDetails()
     }
 
-    private fun initialization() {
+    override fun showDetails() {
+        val seasons = APP_ACTIVITY.resources.getString(R.string.seasons)
+        val episodes = APP_ACTIVITY.resources.getString(R.string.episodes)
+        val firstAirDate = APP_ACTIVITY.resources.getString(R.string.first_air_date)
+        val lastAirDate = APP_ACTIVITY.resources.getString(R.string.last_air_date)
+        val averageVote = APP_ACTIVITY.resources.getString(R.string.average_vote)
+        val status = APP_ACTIVITY.resources.getString(R.string.status)
 
         val response = presenter.getTvPostDetails(tvId)
-
-        mBinding.nameDetails.text =  response.name
-        mBinding.firstAirDateDetails.text = "First date air: " + response.firstAirDate
-        mBinding.voteAverageDetails.text = "Average vote: " + response.voteAverage.toString()
+        mBinding.nameDetails.text = response.name
+        mBinding.tagLineDetails.text = response.tagline
+        mBinding.numberOfSeasonsDetails.text = seasons + " " + response.numberOfSeasons.toString()
+        mBinding.numberOfEpisodesDetails.text = episodes + " " + response.numberOfEpisodes.toString()
+        mBinding.firstAirDateDetails.text = firstAirDate + " " + response.firstAirDate
+        mBinding.lastAirDateDetails.text = lastAirDate + " " + response.lastAirDate
+        mBinding.voteAverageDetails.text = averageVote + " " + response.voteAverage.toString()
+        mBinding.statusDetails.text = status + " " + response.status
         mBinding.overviewDetails.text = response.overview
 
         Picasso.get()

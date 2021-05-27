@@ -9,10 +9,7 @@ import javax.inject.Inject
 
 class DetailsPresenter : MvpPresenter<DetailsView>() {
 
-//    @Inject
-//    lateinit var repository: TvPostDetailsRepository
-
-    val repository = TvPostDetailsRepository()
+    private val repository = TvPostDetailsRepository()
 
     fun getTvPostDetails(id: Int) : TvPostDetails{
         return repository.getTvPostDetails(id, API_KEY)

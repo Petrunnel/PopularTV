@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MainView {
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
         super.onStart()
         initSwipeToRefresh()
         initRecyclerView()
-        initPresenter()
+        loadData()
 
     }
 
@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
         mRecyclerView.adapter = null
     }
 
-    private fun initRecyclerView() {
+    override fun initRecyclerView() {
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.apply {
             layoutManager = LinearLayoutManager(APP_ACTIVITY)
@@ -72,7 +72,7 @@ class MainFragment : Fragment() {
     }
 
     @ExperimentalPagingApi
-    private fun initPresenter() {
+    override fun loadData() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             presenter.getTvPosts().collectLatest {
                 mAdapter.submitData(it)
@@ -80,7 +80,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun initSwipeToRefresh() {
+    override fun initSwipeToRefresh() {
         mBinding.swipeRefresh.setOnRefreshListener {
             mAdapter.refresh()
             mBinding.swipeRefresh.isRefreshing = false
