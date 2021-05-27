@@ -1,5 +1,6 @@
 package com.example.notes.populartv.ui.main_fragment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class TvPostViewAdapter(private val cl: TvPostClickListener) :
 
         fun bind(data: TvPost, clickListener: (tvPost: TvPost) -> Unit) {
             itemView.setOnClickListener {clickListener(data)}
+            Log.d("Id", data.id.toString())
             tvName.text = data.name + " (" + showYear(data.firstAirDate) + ")"
             tvVoteRb.rating = data.voteAverage.toFloat() / 2
             tvVote.text = data.voteAverage.toString()
