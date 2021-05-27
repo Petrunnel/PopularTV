@@ -14,11 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentMainBinding
-import com.example.notes.populartv.di.Injection
+import com.example.notes.populartv.di.TvPostModule
 import com.example.notes.populartv.utilits.APP_ACTIVITY
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
+
+    @Inject
+    lateinit var presenter: MainPresenter
 
     private var _binding: FragmentMainBinding? = null
     private val mBinding get() = _binding!!
@@ -38,7 +44,7 @@ class MainFragment : Fragment() {
         super.onStart()
         initSwipeToRefresh()
         initRecyclerView()
-        initViewModel()
+        initPresenter()
 
     }
 
@@ -66,13 +72,9 @@ class MainFragment : Fragment() {
     }
 
     @ExperimentalPagingApi
-    private fun initViewModel() {
-        val viewModel  = ViewModelProvider(
-            this,
-            Injection.provideViewModelFactory(APP_ACTIVITY)
-            ).get(MainFragmentViewModel::class.java)
-        lifecycleScope.launchWhenCreated {
-            viewModel.getTvPosts().collectLatest {
+    private fun initPresenter() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            presenter.getTvPosts().collectLatest {
                 mAdapter.submitData(it)
             }
         }

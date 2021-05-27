@@ -16,23 +16,33 @@
 
 package com.example.notes.populartv.di
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import com.example.notes.populartv.api.PopularTvApi
 import com.example.notes.populartv.db.TvPostDatabase
 import com.example.notes.populartv.repository.PopularTvRepository
-import com.example.notes.populartv.ui.main_fragment.ViewModelFactory
+import com.example.notes.populartv.ui.main_fragment.MainPresenter
+import com.example.notes.populartv.utilits.APP_ACTIVITY
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-object Injection {
+@Module
+@InstallIn(SingletonComponent::class)
+object TvPostModule {
 
-    private fun providePopularTvRepository(context: Context): PopularTvRepository {
+    @Provides
+    @Singleton
+    fun providePopularTvRepository(): PopularTvRepository {
         return PopularTvRepository(
             PopularTvApi.create(),
-            TvPostDatabase.getInstance(context)
+            TvPostDatabase.getInstance(APP_ACTIVITY)
         )
     }
 
-    fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
-        return ViewModelFactory(providePopularTvRepository(context))
+    @Provides
+    fun provideDetailsPresenter(): MainPresenter {
+        return MainPresenter()
     }
+
 }
