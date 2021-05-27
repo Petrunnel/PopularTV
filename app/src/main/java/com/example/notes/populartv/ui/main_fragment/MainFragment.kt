@@ -16,7 +16,6 @@ import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentMainBinding
 import com.example.notes.populartv.di.TvPostModule
 import com.example.notes.populartv.utilits.APP_ACTIVITY
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
