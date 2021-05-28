@@ -1,5 +1,6 @@
 package com.example.notes.populartv.ui.details_fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
         showDetails()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun showDetails() {
         val seasons = APP_ACTIVITY.resources.getString(R.string.seasons)
         val episodes = APP_ACTIVITY.resources.getString(R.string.episodes)

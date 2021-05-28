@@ -9,5 +9,7 @@ interface MainView : MvpView{
     fun loadData()
     fun initSwipeToRefresh()
     fun initRecyclerView()
+    fun initSearchAdapter()
+    fun initAdapter()
 
 }

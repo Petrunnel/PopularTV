@@ -6,27 +6,28 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.notes.populartv.api.PopularTvApi
-import com.example.notes.populartv.models.TvPost
-import com.example.notes.populartv.db.RemoteKey
-import com.example.notes.populartv.db.TvPostDatabase
+import com.example.notes.populartv.db.search.SearchRemoteKey
+import com.example.notes.populartv.db.search.SearchTvPostDatabase
+import com.example.notes.populartv.models.SearchTvPost
 import com.example.notes.populartv.utilits.API_KEY
 import com.example.notes.populartv.utilits.FIRST_PAGE_INDEX
 import okio.IOException
 import retrofit2.HttpException
 
 @ExperimentalPagingApi
-class PopularTvRemoteMediator(
+class SearchTvRemoteMediator(
     private val api: PopularTvApi,
-    private val db: TvPostDatabase
-) : RemoteMediator<Int, TvPost>() {
+    private val db: SearchTvPostDatabase,
+    private val searchRequest: String
+) : RemoteMediator<Int, SearchTvPost>() {
 
     override suspend fun initialize(): InitializeAction {
-        return InitializeAction.SKIP_INITIAL_REFRESH
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TvPost>
+        state: PagingState<Int, SearchTvPost>
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
@@ -49,7 +50,11 @@ class PopularTvRemoteMediator(
         }
 
         try {
-            val response = api.getTop(apiKey = API_KEY, pageNumber = page)
+            val response = api.getSearchResults(
+                apiKey = API_KEY,
+                searchRequest = searchRequest,
+                pageNumber = page
+            )
             val isEndOfList = response.results.isEmpty()
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -59,7 +64,7 @@ class PopularTvRemoteMediator(
                 val prevKey = if (page == FIRST_PAGE_INDEX) null else page - 1
                 val nextKey = if (isEndOfList) null else page + 1
                 val keys = response.results.map {
-                    RemoteKey(it.id, prevKey = prevKey, nextKey = nextKey)
+                    SearchRemoteKey(it.id, prevKey = prevKey, nextKey = nextKey)
                 }
                 db.getKeysDao().insertAll(keys)
                 db.getTvPostDao().insertAll(response.results)
@@ -73,8 +78,8 @@ class PopularTvRemoteMediator(
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, TvPost>
-    ): RemoteKey? {
+        state: PagingState<Int, SearchTvPost>
+    ): SearchRemoteKey? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { repoId ->
                 db.getKeysDao().remoteKeysTvPostId(repoId)
@@ -82,14 +87,14 @@ class PopularTvRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, TvPost>): RemoteKey? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, SearchTvPost>): SearchRemoteKey? {
         return state.pages
             .lastOrNull() { it.data.isNotEmpty() }
             ?.data?.lastOrNull()
             ?.let { repo -> db.getKeysDao().remoteKeysTvPostId(repo.id) }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, TvPost>): RemoteKey? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, SearchTvPost>): SearchRemoteKey? {
         return state.pages
             .firstOrNull { it.data.isNotEmpty() }
             ?.data?.firstOrNull()

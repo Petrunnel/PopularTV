@@ -1,8 +1,10 @@
 package com.example.notes.populartv
 
+import android.app.SearchManager
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.media.session.MediaButtonReceiver.handleIntent
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.notes.populartv.databinding.ActivityMainBinding
@@ -12,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mToolbar: Toolbar
     lateinit var navController: NavController
     private var _binding: ActivityMainBinding? = null
     private val mBinding get() = _binding!!
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

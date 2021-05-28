@@ -1,6 +1,6 @@
 package com.example.notes.populartv.ui.main_fragment
 
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +11,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.populartv.R
-import com.example.notes.populartv.models.TvPost
+import com.example.notes.populartv.models.SearchTvPost
 import com.example.notes.populartv.utilits.POSTER_W200_BASE_URL
 import com.example.notes.populartv.utilits.showYear
 import com.squareup.picasso.Picasso
 
-class TvPostViewAdapter(private val cl: TvPostClickListener) :
-    PagingDataAdapter<TvPost, TvPostViewAdapter.MyViewHolder>(DiffUtilCallBack()) {
+class SearchTvPostViewAdapter(private val cl: SearchTvPostClickListener) :
+    PagingDataAdapter<SearchTvPost, SearchTvPostViewAdapter.MyViewHolder>(DiffUtilCallBack()) {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
@@ -42,7 +42,8 @@ class TvPostViewAdapter(private val cl: TvPostClickListener) :
         private val tvVote: TextView = view.findViewById(R.id.vote_average_number_list)
         private val tvPoster: ImageView = view.findViewById(R.id.poster_image_list)
 
-        fun bind(data: TvPost, clickListener: (tvPost: TvPost) -> Unit) {
+        @SuppressLint("SetTextI18n")
+        fun bind(data: SearchTvPost, clickListener: (tvPost: SearchTvPost) -> Unit) {
             itemView.setOnClickListener {clickListener(data)}
             tvName.text = data.name + " (" + data.firstAirDate?.let { showYear(it) } + ")"
             tvVoteRb.rating = data.voteAverage.toFloat() / 2
@@ -55,15 +56,15 @@ class TvPostViewAdapter(private val cl: TvPostClickListener) :
 
     }
 
-    class DiffUtilCallBack : DiffUtil.ItemCallback<TvPost>() {
-        override fun areItemsTheSame(oldItem: TvPost, newItem: TvPost): Boolean {
+    class DiffUtilCallBack : DiffUtil.ItemCallback<SearchTvPost>() {
+        override fun areItemsTheSame(oldItem: SearchTvPost, newItem: SearchTvPost): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: TvPost, newItem: TvPost): Boolean {
+        override fun areContentsTheSame(oldItem: SearchTvPost, newItem: SearchTvPost): Boolean {
             return oldItem == newItem
         }
     }
 
-    data class TvPostClickListener(val clickListener: (tvPost: TvPost) -> Unit)
+    data class SearchTvPostClickListener(val clickListener: (tvPost: SearchTvPost) -> Unit)
 }

@@ -16,6 +16,9 @@ interface TvPostDao {
     @Query("SELECT * FROM tv_posts")
     fun getAll(): PagingSource<Int, TvPost>
 
+//    @Query("SELECT * FROM tv_posts WHERE name LIKE :searchRequest")
+//    fun getSearchResults(searchRequest: String): PagingSource<Int, TvPost>
+
     @Query("DELETE FROM tv_posts")
     suspend fun deleteAll()
 }

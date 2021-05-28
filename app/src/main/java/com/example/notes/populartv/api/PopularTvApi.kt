@@ -16,10 +16,12 @@
 
 package com.example.notes.populartv.api
 
+import android.text.Editable
 import android.util.Log
 import com.example.notes.populartv.models.TvPostDetails
 import com.example.notes.populartv.utilits.BASE_URL
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -44,10 +46,17 @@ interface PopularTvApi {
         @Query("api_key") apiKey: String,
     ): TvPostDetails
 
+    @GET("search/tv")
+    suspend fun getSearchResults(
+        @Query("api_key") apiKey: String,
+        @Query("query") searchRequest: String,
+        @Query("page") pageNumber: Int,
+    ): SearchTvList
+
     companion object {
         fun create(): PopularTvApi {
             val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.d("API", it) })
-            logger.level = HttpLoggingInterceptor.Level.BODY
+            logger.level = HttpLoggingInterceptor.Level.BASIC
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)

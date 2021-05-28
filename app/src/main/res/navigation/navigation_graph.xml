@@ -21,9 +21,5 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.notes.populartv.ui.details_fragment.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
-        <action
-            android:id="@+id/action_detailsFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_details" />
 </navigation>
