@@ -16,12 +16,10 @@
 
 package com.example.notes.populartv.api
 
-import android.text.Editable
 import android.util.Log
 import com.example.notes.populartv.models.TvPostDetails
 import com.example.notes.populartv.utilits.BASE_URL
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

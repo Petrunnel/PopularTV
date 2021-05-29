@@ -4,8 +4,6 @@ import com.example.notes.populartv.models.TvPostDetails
 import com.example.notes.populartv.repository.TvPostDetailsRepository
 import com.example.notes.populartv.utilits.API_KEY
 import moxy.MvpPresenter
-import moxy.presenter.ProvidePresenter
-import javax.inject.Inject
 
 class DetailsPresenter : MvpPresenter<DetailsView>() {
 

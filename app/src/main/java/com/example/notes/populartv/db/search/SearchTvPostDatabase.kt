@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.notes.populartv.models.SearchTvPost
-import com.example.notes.populartv.models.TvPost
 
 @Database(version = 1, entities = [SearchTvPost::class, SearchRemoteKey::class], exportSchema = false)
 abstract class SearchTvPostDatabase : RoomDatabase() {

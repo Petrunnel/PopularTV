@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.notes.populartv.MainActivity
 import com.example.notes.populartv.R
 import com.example.notes.populartv.databinding.FragmentDetailsBinding
 import com.example.notes.populartv.utilits.APP_ACTIVITY
@@ -31,11 +32,18 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
     ): View? {
         _binding = FragmentDetailsBinding.inflate(layoutInflater, container, false)
         tvId = arguments?.getInt("id")!!
+        val mainActivity = activity as MainActivity
+        mainActivity.mToolbar.setNavigationIcon(R.drawable.ic_back)
+        mainActivity.mToolbar.setNavigationOnClickListener {
+            mainActivity.mToolbar.navigationIcon = null
+            activity?.onBackPressed()
+        }
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
+        setHasOptionsMenu(true)
         showDetails()
     }
 
@@ -52,7 +60,8 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
         mBinding.nameDetails.text = response.name
         mBinding.tagLineDetails.text = response.tagline
         mBinding.numberOfSeasonsDetails.text = seasons + " " + response.numberOfSeasons.toString()
-        mBinding.numberOfEpisodesDetails.text = episodes + " " + response.numberOfEpisodes.toString()
+        mBinding.numberOfEpisodesDetails.text =
+            episodes + " " + response.numberOfEpisodes.toString()
         mBinding.firstAirDateDetails.text = firstAirDate + " " + response.firstAirDate
         mBinding.lastAirDateDetails.text = lastAirDate + " " + response.lastAirDate
         mBinding.voteAverageDetails.text = averageVote + " " + response.voteAverage.toString()
@@ -69,6 +78,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
             .centerInside()
             .into(mBinding.backdropPathDetails)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -141,7 +141,24 @@ class MainFragment :
         val searchView = searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(this)
         searchView.queryHint = "Search"
+
+        // Detect SearchView icon clicks
+        searchView.setOnSearchClickListener { setItemsVisibility(menu, searchItem, false) }
+
+        // Detect SearchView close
+        searchView.setOnCloseListener {
+            setItemsVisibility(menu, searchItem, true)
+            false
+
+        }
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun setItemsVisibility(menu: Menu, exception: MenuItem, visible: Boolean) {
+        for (i in 0 until menu.size()) {
+            val item = menu.getItem(i)
+            if (item !== exception) item.isVisible = visible
+        }
     }
 
     @ExperimentalPagingApi
@@ -157,7 +174,7 @@ class MainFragment :
             mQuery = null
             mRecyclerView.adapter = mAdapter
             loadData()
-            return false;
+            return false
         }
         mQuery = newText
         mRecyclerView.adapter = mSearchAdapter
@@ -171,6 +188,18 @@ class MainFragment :
 
     override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
         return true
+    }
+
+    @ExperimentalPagingApi
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.refresh -> {
+                mQuery = null
+                mRecyclerView.adapter = mAdapter
+                loadData()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
