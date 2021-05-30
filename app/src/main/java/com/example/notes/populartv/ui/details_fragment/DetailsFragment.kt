@@ -36,8 +36,10 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
         mainActivity.mToolbar.setNavigationIcon(R.drawable.ic_back)
         mainActivity.mToolbar.setNavigationOnClickListener {
             mainActivity.mToolbar.navigationIcon = null
+            mainActivity.mToolbar.title = getString(R.string.toolbar_title_default)
             activity?.onBackPressed()
         }
+        mainActivity.mToolbar.title = getString(R.string.toolbar_title_details)
         return mBinding.root
     }
 

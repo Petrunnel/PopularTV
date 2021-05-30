@@ -9,4 +9,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_item_title_search">search</string>
     <string name="menu_item_title_refresh">refresh</string>
+    <string name="toolbar_title_details">Details</string>
+    <string name="toolbar_title_default">Popular Tv Show</string>
 </resources>

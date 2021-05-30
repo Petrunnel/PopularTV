@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         mToolbar = mBinding.toolbar
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
-        title = "Popular Tv Show"
+        title = getString(R.string.toolbar_title_default)
     }
 
 
