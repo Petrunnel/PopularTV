@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_right_to_left_enter"
+            app:exitAnim="@anim/slide_right_to_left_exit"
+            app:popEnterAnim="@anim/slide_right_to_left_enter"
+            app:popExitAnim="@anim/slide_right_to_left_exit" />
         <argument
             android:name="TvName"
             app:argType="string" />

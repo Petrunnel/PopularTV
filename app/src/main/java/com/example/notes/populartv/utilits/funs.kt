@@ -16,6 +16,6 @@ fun showYear(string: String): String {
         val outputDateFormat = java.text.SimpleDateFormat("yyyy")
         outputDateFormat.format(date)
     } catch (exception: Exception) {
-        "unknown"
+        "null"
     }
 }
