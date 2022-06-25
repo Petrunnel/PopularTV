@@ -44,7 +44,6 @@ class MainFragment :
         return mBinding.root
     }
 
-    @ExperimentalPagingApi
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
@@ -54,7 +53,6 @@ class MainFragment :
         initRecyclerView()
     }
 
-    @ExperimentalPagingApi
     override fun onResume() {
         super.onResume()
         if (mQuery != null) {
@@ -107,7 +105,7 @@ class MainFragment :
         })
     }
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     override fun loadData() {
         if (mQuery != null) {
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -124,7 +122,6 @@ class MainFragment :
         }
     }
 
-    @ExperimentalPagingApi
     override fun initSwipeToRefresh() {
         mBinding.swipeRefresh.setOnRefreshListener {
             mQuery = null
@@ -161,14 +158,12 @@ class MainFragment :
         }
     }
 
-    @ExperimentalPagingApi
     override fun onQueryTextSubmit(query: String?): Boolean {
         mQuery = query
         loadData()
         return true
     }
 
-    @ExperimentalPagingApi
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText == null || newText.trim().isEmpty()) {
             mQuery = null
@@ -190,7 +185,6 @@ class MainFragment :
         return true
     }
 
-    @ExperimentalPagingApi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.refresh -> {
