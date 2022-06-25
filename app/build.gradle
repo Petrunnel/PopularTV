@@ -7,7 +7,7 @@ plugins {
 
 android {
     compileSdkVersion 32
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "32.0.0"
 
     defaultConfig {
         applicationId "com.example.notes.populartv"
@@ -17,6 +17,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"
+                ]
+            }
+        }
     }
 
     buildTypes {
@@ -38,8 +47,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-
 }
 
 dependencies {
@@ -60,6 +67,9 @@ dependencies {
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -82,26 +92,24 @@ dependencies {
     def room_version = "2.4.2"
 
     implementation "androidx.room:room-runtime:$room_version"
-
-    // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
 
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
     // optional - Paging 3 Integration
-    implementation("androidx.room:room-paging:2.5.0-alpha02")
+    implementation "androidx.room:room-paging:$room_version"
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
-//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
-//    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation 'com.google.dagger:hilt-android:2.42'
+    kapt 'com.google.dagger:hilt-compiler:2.42'
 
     //Moxy
     def moxyVersion = "2.2.2"
     implementation("com.github.moxy-community:moxy-androidx:$moxyVersion")
     implementation("com.github.moxy-community:moxy-ktx:$moxyVersion")
     kapt("com.github.moxy-community:moxy-compiler:$moxyVersion")
+}
 
+kapt {
+    correctErrorTypes true
 }

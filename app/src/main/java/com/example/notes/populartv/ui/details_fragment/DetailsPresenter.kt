@@ -10,7 +10,7 @@ class DetailsPresenter : MvpPresenter<DetailsView>() {
     private val repository = TvPostDetailsRepository()
 
     fun getTvPostDetails(id: Int) : TvPostDetails{
-        return repository.getTvPostDetails(id, API_KEY)
+        return repository.getTvPostDetails(id)
     }
 
 }
